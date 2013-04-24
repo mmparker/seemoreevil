@@ -27,27 +27,54 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
   
   
   # Identify the appropriate answer set
-  # freqlevels <- c("Daily", "Twice a week", "Weekly", "Monthly", "Occasionally", "First time")
-  freqlevels <- c("Strongly Disagree", "Disagree", "Agree", "Strongly Agree", "No long wait")
+  # A list of all possible answer sets
+  response_sets <- list(freq = c("Daily", "Twice a week", "Weekly", 
+                                 "Monthly", "Occasionally", "First time", NA),
+                        agree = c("Strongly Disagree", "Disagree",
+                                  "Agree", "Strongly Agree", "Does not apply", NA),
+                        agree_wait = c("Strongly Disagree", "Disagree", 
+                                       "Agree", "Strongly Agree", 
+                                       "No long wait", NA)
+  )
+  
+  # Which ones contain all of the responses in this question?  Use the first
+  matching_sets <- ldply(response_sets, .fun = function(x) {
+    
+      all(unique(answerfreq[ , question]) %in% x)
+  
+  })
+  
+  response_set <- matching_sets$.id[matching_sets$V1][1]
   
   
   # Reorder the responses accordingly
-  #answerfreq[ , question] <- factor(answerfreq[ , question],
-  #                                  levels = freqlevels)
+  answerfreq$response <- factor(answerfreq[ , question],
+                                 levels = response_sets[[response_set]])
   
   
   
   # Generate the plot
-  answerplot <- ggplot(answerfreq,
+  answerplot <- 
+    
+    
+    
+    
+    
+    ggplot(answerfreq,
                        aes_string(x = collector_name,
                                  weight = 'prop',
-                                 group = question,
-                                 fill = question)) +
-                    geom_bar() +
+                                 group = 'response',
+                                 fill = 'response')) +
+                    geom_bar(color = "black") +
                     scale_fill_discrete("Response") +
                     labs(x = "Survey round",
-                    y = "Proportion of respondents",
-                    title = question_label)
+                         y = "Proportion of respondents") +
+                    theme_bw() +
+                    theme(axis.text.x = element_text(angle = 45, hjust = 1.05, vjust = 1.1))
+  
+  
+  
+  
   
   
   # Is there a corresponding comments section?
