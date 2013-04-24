@@ -54,41 +54,34 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
   
   
   # Generate the plot
-  answerplot <- 
-    
-    
-    
-    
-    
-    ggplot(answerfreq,
+  answerplot <- ggplot(answerfreq,
                        aes_string(x = collector_name,
                                  weight = 'prop',
                                  group = 'response',
                                  fill = 'response')) +
                     geom_bar(color = "black") +
-                    scale_fill_discrete("Response") +
+                    scale_fill_brewer("Response", palette = "PiYG") +
                     labs(x = "Survey round",
                          y = "Proportion of respondents") +
+                    guides(fill = guide_legend(reverse = TRUE)) +
                     theme_bw() +
                     theme(axis.text.x = element_text(angle = 45, hjust = 1.05, vjust = 1.1))
   
   
   
-  
-  
-  
   # Is there a corresponding comments section?
+  comment_vec <- make.names(paste(question_label," - Comments:", sep = ""))
+    
+  # If so, aggregate and return
   comments <- NA
-  #comments <- arrange(
-  #                 count(monkeydata,
-  #                       var = namedict$name[namedict$label %in% 
-  #                                           paste(question_label, 
-  #                                                 " - Comments:", 
-  #                                                 sep = "")]),
-  #                  desc(freq)
-  #)
   
-  #names(comments) <- c("Comment", "freq")
+  if(comment_vec %in% names(monkeydata)) {
+    comments <- arrange(count(monkeydata, var = comment_vec), desc(freq))
+    names(comments) <- c("Comment", "Freq")
+  }
+  
+    
+  
   
   
   # Return a list of the elements

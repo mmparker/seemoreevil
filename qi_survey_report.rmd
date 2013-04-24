@@ -166,6 +166,8 @@ l_ply(mc_results, .fun = function(x) {
   
   print(x$answerplot)
   
+  cat("\n")
+  
   if(class(x$comments) %in% "data.frame") {
       dfprint(x$comments)
   }
