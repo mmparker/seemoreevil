@@ -1,6 +1,31 @@
 
 <style type="text/css">
 
+body {
+  padding-bottom: 20%;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #808080;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #31A354;
+  color: #FFFFFF;
+  border: 1px solid #808080;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+td {
+  border: 1px solid #808080;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
 h1, h2, h3, p {
   text-align: center
 }
@@ -8,6 +33,16 @@ h1, h2, h3, p {
 img {
   margin-left: auto;
   margin-right: auto;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc); 
+  background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc); 
+  background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc); 
+  background-image:      -o-linear-gradient(left, #ccc, #333, #ccc); 
 }
 
 </style>
@@ -37,7 +72,7 @@ opts_chunk$set(echo = FALSE,
                warning = FALSE,
                error = TRUE,
                fig.width = 10,
-               dev="svg",
+               dev="png",
                tidy=FALSE,
                cache = FALSE)
 
