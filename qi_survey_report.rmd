@@ -1,12 +1,18 @@
 
+<style type="text/css">
 
-# Customer Satisfaction Survey Results
-# TB Clinic
-# [dates covered]
+h1, h2, h3, p {
+  text-align: center
+}
 
+img {
+  margin-left: auto;
+  margin-right: auto;
+}
 
+</style>
 
-```{r setup, echo=FALSE,results='hide', message=FALSE}
+```{r setup, echo=FALSE,results='hide', message=FALSE, warning=FALSE}
 
 
 options(stringsAsFactors = FALSE)
@@ -28,10 +34,11 @@ library(reshape2)
 opts_chunk$set(echo = FALSE,
                comment = "",
                message = FALSE,
-               warning = TRUE,
+               warning = FALSE,
                error = TRUE,
                fig.width = 10,
                dev="svg",
+               tidy=FALSE,
                cache = FALSE)
 
 
@@ -56,13 +63,16 @@ dfprint <- function(df, printdigits = 2) {
         NA.string = "-")
 }
 
+# Custom theme
 theme_tb <- theme_bw() +
             theme(legend.key.width = unit(.75, "inches"))
+
 
 ```
 
 
-```{r load}
+
+```{r dataprep}
 
 # Identify the zip file containing the results
 datafile <- list.files(pattern = "*.zip")
@@ -110,11 +120,26 @@ open_ended <- grep(x = names(rescoll), pattern = "Open.Ended.Response$", value =
 multiple_choice <- names(rescoll)[!names(rescoll) %in% c(metadata, demos, comments, open_ended)]
 
 
-all(names(rescoll) %in% c(metadata, demos, comments, open_ended, multiple_choice))
+# all(names(rescoll) %in% c(metadata, demos, comments, open_ended, multiple_choice))
+
+# Identify which area's results are in question
+strat_area <- gsub(x = rescoll$Title[1],
+                   pattern = "(\\S*)\\s.*$",
+                   replace = "\\1")
+
+# Scrape the dates covered
+survdates <- gsub(x = unique(rescoll$Title), 
+                  pattern = ".* (\\d{4}-\\d{2}).*$",
+                  replace = "\\1")
 
 
 ```
 
+
+# Customer Satisfaction Survey Results: `r strat_area`
+## `r min(survdates)` through `r max(survdates)`
+
+-----------------------------------------------
 
 
 
@@ -128,24 +153,24 @@ mc_results <- llply(multiple_choice,
 
 names(mc_results) <- multiple_choice
 
-x <- gen_multiple_choice_results(rescoll, multiple_choice[3], "Title", namewalk)
-
 
 ```
 
 
-```{r display_mc_results}
+```{r display_mc_results,results='asis'}
 
 
 l_ply(mc_results, .fun = function(x) {
   
-  cat("###", x$question_label)
+  cat("## ", x$question_label, "\n")
   
   print(x$answerplot)
   
   if(class(x$comments) %in% "data.frame") {
       dfprint(x$comments)
   }
+  
+  cat("\n", "-----------------------------", "\n")
 
 })
   
