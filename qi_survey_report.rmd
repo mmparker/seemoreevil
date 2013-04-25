@@ -176,7 +176,27 @@ survdates <- gsub(x = unique(rescoll$Title),
 
 -----------------------------------------------
 
+## Number of respondents
+```{r nrespondents}
 
+# Aggregate by collector
+nresp <- count(rescoll, "Title")
+
+
+ggplot(nresp, aes(x = Title, weight = freq)) +
+  geom_bar(fill = "#4DAC26", color = "black") +
+  scale_fill_brewer("Response", palette = "PiYG") +
+  labs(x = "Survey round",
+       y = "Number of respondents") +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  theme_bw() +
+ theme(axis.text.x = element_text(angle = 45, hjust = 1.05, vjust = 1.1))
+
+```
+
+-----------------------------------------------
+
+## Multiple Choice Responses
 
 ```{r generate_mc_results}
 
