@@ -201,7 +201,7 @@ ggplot(nresp, aes(x = Title, weight = freq)) +
 
 ```{r generate_mc_results}
 
-source("gen_multiple_choice_results.r")
+source(file.path("fun", "gen_multiple_choice_results.r"))
 
 mc_results <- llply(multiple_choice,
                     .fun = function(x) gen_multiple_choice_results(rescoll, x, "Title", namewalk)
@@ -243,7 +243,7 @@ l_ply(mc_results, .fun = function(x) {
 ## Open-Ended Responses
 ```{r generate_oe_results, results='asis'}
 
-source("gen_open_ended_results.r")
+source(file.path("fun", "gen_open_ended_results.r"))
 
 
 oe_results <- llply(open_ended,
