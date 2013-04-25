@@ -14,12 +14,9 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
     
     # Aggregate the responses for this collector
     quest_summary <- arrange(count(x, question), desc(freq))
-    
-    # Add percentage of respondents giving each response
-    quest_summary$prop <- quest_summary$freq / nrow(x) * 100
-    
+        
     # Label the data.frame with the collector name
-    names(quest_summary) <- c(x$Title[1], "freq", "prop")
+    names(quest_summary) <- c(x$Title[1], "Freq")
     
     quest_summary
     
