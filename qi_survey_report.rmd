@@ -13,7 +13,7 @@ table {
 }
 
 th {
-  background-color: #31A354;
+  background-color: #4DAC26;
   color: #FFFFFF;
   border: 1px solid #808080;
   padding-right: 20px;
