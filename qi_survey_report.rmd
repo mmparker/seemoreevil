@@ -10,6 +10,7 @@ table {
   margin-right: auto;
   border: 1px solid #808080;
   border-collapse: collapse;
+  width:70%;
 }
 
 th {
@@ -71,7 +72,7 @@ opts_chunk$set(echo = FALSE,
                message = FALSE,
                warning = FALSE,
                error = TRUE,
-               fig.width = 10,
+               fig.width = 9,
                dev="jpeg",
                tidy=FALSE,
                cache = FALSE)
@@ -223,8 +224,11 @@ l_ply(mc_results, .fun = function(x) {
   
   cat("\n")
   
-  if(class(x$comments) %in% "data.frame") {
-      dfprint(x$comments)
+  if(!is.na(x$comments)) {
+      l_ply(x$comments, .fun = function(x) {
+        cat("\n")
+        dfprint(x) 
+      })
   }
   
   cat("\n", "-----------------------------", "\n")
