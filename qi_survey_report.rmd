@@ -72,7 +72,7 @@ opts_chunk$set(echo = FALSE,
                warning = FALSE,
                error = TRUE,
                fig.width = 10,
-               dev="png",
+               dev="jpeg",
                tidy=FALSE,
                cache = FALSE)
 
