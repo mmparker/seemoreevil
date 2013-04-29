@@ -66,6 +66,11 @@ library(plyr)
 library(reshape2)
 
 
+# Set up the output directories if they don't yet exist
+dir.create("archived_data")
+dir.create("reports")
+
+
 # Set default chunk options
 opts_chunk$set(echo = FALSE,
                comment = "",
