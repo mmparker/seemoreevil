@@ -273,7 +273,7 @@ l_ply(oe_results, .fun = function(x) {
 
 
 
-```{r cleanup}
+```{r cleanup, results='hide'}
 
 # Archive the data file
 file.rename(from = datafile, to = file.path("archived_data", datafile))
