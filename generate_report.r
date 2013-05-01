@@ -33,7 +33,8 @@ report_name <- paste(strat_area, "_", Sys.Date(), ".html", sep = "")
 knit("qi_survey_report.rmd")
 
 markdownToHTML(file = "qi_survey_report.md",
-               output = file.path("reports", report_name))
+               output = file.path("reports", report_name),
+               stylesheet = file.path("..", "css", "qi_report.css"))
 
 
 # Remove the residual .md file
