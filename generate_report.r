@@ -34,7 +34,7 @@ knit("qi_survey_report.rmd")
 
 markdownToHTML(file = "qi_survey_report.md",
                output = file.path("reports", report_name),
-               stylesheet = "qi_report.css")
+               stylesheet = file.path("..", "qi_report.css"))
 
 
 # Remove the residual .md file
