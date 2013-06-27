@@ -95,7 +95,7 @@ names(rescoll) <- make.names(names(rescoll), unique = TRUE)
 # Identify which variables are multiple-choice questions
 metadata <- c("CollectorID", "RespondentID", "StartDate", "EndDate", "IP.Address",
               "Email.Address", "First.Name", "LastName", "Custom.Data",
-              "Title", "Date.Created")
+              "Title", "Date.Created", "Custom.Data")
 
 demos <- c("Gender.", "Age.",
            "Race.ethnicity....Asian",

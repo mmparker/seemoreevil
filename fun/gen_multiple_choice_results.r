@@ -6,6 +6,7 @@
 gen_multiple_choice_results <- function(monkeydata, question, collector_name, namedict) {
   
   require(plyr)
+  require(ggplot2)
   
   # What's the original label for this question?
   question_label <- namedict$label[namedict$name %in% question]
@@ -34,7 +35,10 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
                                   "Agree", "Strongly Agree", "Does not apply", NA),
                         agree_wait = c("Strongly Disagree", "Disagree", 
                                        "Agree", "Strongly Agree", 
-                                       "No long wait", NA)
+                                       "No long wait", NA),
+                        satisfied = c("Strongly Dissatisfied", "Dissatisfied",
+                                      "Satisfied", "Strongly Satisfied",
+                                      "Does not apply", NA)
   )
   
   # Which ones contain all of the responses in this question?  Use the first
