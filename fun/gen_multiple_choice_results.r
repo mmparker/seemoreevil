@@ -7,6 +7,7 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
   
   require(plyr)
   require(ggplot2)
+  require(RColorBrewer)
   
   # What's the original label for this question?
   question_label <- namedict$label[namedict$name %in% question]
@@ -31,13 +32,17 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
   # A list of all possible answer sets
   response_sets <- list(freq = c("Daily", "Twice a week", "Weekly", 
                                  "Monthly", "Occasionally", "First time", NA),
-                        agree = c("Strongly Disagree", "Disagree",
-                                  "Agree", "Strongly Agree", "Does not apply", NA),
-                        agree_wait = c("Strongly Disagree", "Disagree", 
-                                       "Agree", "Strongly Agree", 
-                                       "No long wait", NA),
-                        satisfied = c("Strongly Dissatisfied", "Dissatisfied",
-                                      "Satisfied", "Strongly Satisfied",
+                        
+                        agree = c("Strongly Agree", "Agree",
+                                  "Disagree", "Strongly Disagree",
+                                  "Does not apply", NA),
+                        
+                        agree_wait = c("No long wait", "Strongly Agree", "Agree",
+                                       "Disagree", "Strongly Disagree",
+                                       "Does not apply", NA),
+                        
+                        satisfied = c("Strongly Satisfied", "Satisfied",
+                                      "Dissatisfied", "Strongly Dissatisfied",
                                       "Does not apply", NA)
   )
   
@@ -56,20 +61,40 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
                                  levels = response_sets[[response_set]])
   
   
+  # Set up colors for each response set
+  mypal <- c(brewer.pal(n = 6, "PiYG"), "gray78")
+  
+  color_sets <- list(
+      
+      freq = mypal[c(1:7)],
+       
+       agree = mypal[c(6, 5, 2, 1, 7, 7)],
+       
+       agree_wait = mypal[c(6, 5, 4, 2, 1, 7, 7)],
+       
+       satisfied = mypal[c(6, 5, 2, 1, 7, 7)]
+                         
+  )
+  
+  names(color_sets$freq) <- response_sets$freq
+  names(color_sets$agree) <- response_sets$agree
+  names(color_sets$agree_wait) <- response_sets$agree_wait
+  names(color_sets$satisfied) <- response_sets$satisfied
+    
   
   # Generate the plot
   answerplot <- ggplot(answerfreq,
                        aes_string(x = collector_name,
-                                 weight = 'prop',
-                                 group = 'response',
-                                 fill = 'response')) +
-                    geom_bar(color = "black") +
-                    scale_fill_brewer("Response", palette = "PiYG") +
-                    labs(x = "Survey round",
-                         y = "Proportion of respondents") +
-                    guides(fill = guide_legend(reverse = TRUE)) +
-                    theme_bw() +
-                    theme(axis.text.x = element_text(angle = 45, hjust = 1.05, vjust = 1.1))
+                                  weight = 'prop',
+                                  group = 'response',
+                                  fill = 'response')) +
+                       geom_bar(color = "black") +
+                       scale_fill_manual("Response", values = color_sets[[response_set]]) +
+                       labs(x = "Survey round",
+                            y = "Proportion of respondents") +
+                       guides(fill = guide_legend(reverse = TRUE)) +
+                       theme_bw() +
+                       theme(axis.text.x = element_text(angle = 45, hjust = 1.05, vjust = 1.1))
   
   
   
