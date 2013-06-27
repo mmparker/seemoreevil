@@ -179,15 +179,6 @@ l_ply(mc_results, .fun = function(x) {
   
   print(x$answerplot)
   
-  cat("\n")
-  
-  if(!is.na(x$comments)) {
-      l_ply(x$comments, .fun = function(x) {
-        cat("\n")
-        dfprint(x) 
-      })
-  }
-  
   cat("\n", "-----------------------------", "\n")
 
 })
@@ -196,36 +187,6 @@ l_ply(mc_results, .fun = function(x) {
 ```
 
 
-
-## Open-Ended Responses
-```{r generate_oe_results, results='asis'}
-
-source(file.path("fun", "gen_open_ended_results.r"))
-
-
-oe_results <- llply(open_ended,
-                    .fun = function(x) gen_multiple_choice_results(rescoll, x, "Title", namewalk)
-)
-
-```
-
-
-
-```{r display_oe_results,results='asis'}
-
-
-l_ply(oe_results, .fun = function(x) {
-  
-  cat("## ", x$question_label, "\n")
-    
-  l_ply(x$comments, .fun = function(x) { dfprint(x) })
-  
-  cat("\n", "-----------------------------", "\n")
-
-})
-  
-  
-```
 
 
 

@@ -69,32 +69,9 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
   
   
   
-  # Is there a corresponding comments section?
-  comment_vec <- make.names(paste(question_label," - Comments:", sep = ""))
-  
-  # If so, aggregate and return
-  commentfreq <- NA
-
-  # Aggregate comments by collector
-  if(comment_vec %in% names(monkeydata)) {
-    commentfreq <- dlply(monkeydata, .var = collector_name, .fun = function(x) {
-    
-      # Aggregate the responses for this collector
-      quest_summary <- arrange(count(x, comment_vec), desc(freq))
-         
-      # Label the data.frame with the collector name
-      names(quest_summary) <- c(x$Title[1], "Freq")
-    
-      quest_summary
-    
-    })
-  }
-  
-  
   # Return a list of the elements
   list(question_label = question_label,
-       answerplot = answerplot, 
-       comments = commentfreq)
+       answerplot = answerplot)
   
   
 }
