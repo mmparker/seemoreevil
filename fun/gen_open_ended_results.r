@@ -1,7 +1,7 @@
 
 
 
-gen_multiple_choice_results <- function(monkeydata, question, collector_name, namedict) {
+gen_open_ended_results <- function(monkeydata, question, collector_name, namedict) {
   
   require(plyr)
   
