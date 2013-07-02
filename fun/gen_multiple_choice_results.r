@@ -41,6 +41,11 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
                                        "Disagree", "Strongly Disagree",
                                        "Does not apply", NA),
                         
+                        wait_minutes = c("< 5 minutes", "10-15 minutes", "15-20 minutes", 
+                                         "> 20 minutes", NA),
+                        
+                        yesno = c("Yes", "No", NA),
+                        
                         satisfied = c("Strongly Satisfied", "Satisfied",
                                       "Dissatisfied", "Strongly Dissatisfied",
                                       "Does not apply", NA)
@@ -71,6 +76,10 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
        agree = mypal[c(6, 5, 2, 1, 7, 7)],
        
        agree_wait = mypal[c(6, 5, 4, 2, 1, 7, 7)],
+      
+       wait_minutes = mypal[c(6, 5, 2, 1, 7)],
+      
+       yesno = mypal[c(6, 1, 7)],
        
        satisfied = mypal[c(6, 5, 2, 1, 7, 7)]
                          
@@ -79,6 +88,8 @@ gen_multiple_choice_results <- function(monkeydata, question, collector_name, na
   names(color_sets$freq) <- response_sets$freq
   names(color_sets$agree) <- response_sets$agree
   names(color_sets$agree_wait) <- response_sets$agree_wait
+  names(color_sets$wait_minutes) <- response_sets$wait_minutes
+  names(color_sets$yesno) <- response_sets$yesno
   names(color_sets$satisfied) <- response_sets$satisfied
     
   
