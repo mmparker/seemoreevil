@@ -97,7 +97,11 @@ metadata <- c("CollectorID", "RespondentID", "StartDate", "EndDate", "IP.Address
               "Email.Address", "First.Name", "LastName", "Custom.Data",
               "Title", "Date.Created", "Custom.Data")
 
-demos <- c("Gender.", "Age.",
+demos <- c("Gender.",
+           "Gender....Male",
+           "Gender....Female",
+           "Gender....Transgender",
+           "Age.",
            "Race.ethnicity....Asian",
            "Race.ethnicity....Black.African.American",
            "Race.ethnicity....Hispanic.Latino",
