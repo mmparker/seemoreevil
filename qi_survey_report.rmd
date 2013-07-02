@@ -112,7 +112,7 @@ demos <- c("Gender.",
 
 comments <- grep(x = names(rescoll), pattern = "Comments.$", value = TRUE)
 
-open_ended <- grep(x = names(rescoll), pattern = "Open.Ended.Response$", value = TRUE)
+open_ended <- grep(x = names(rescoll), pattern = "Open.Ended.Response$|explain.$", value = TRUE)
 
 multiple_choice <- names(rescoll)[!names(rescoll) %in% c(metadata, demos, comments, open_ended)]
 
